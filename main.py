@@ -24,9 +24,9 @@ while True:
             if not myMap[-1].views[2]: #checa se havia o caminho da direita
                 myMap[-1].views[2] == True #elimina o caminho da direita
             elif not myMap[-1].views[1]: #checa se havia caminho do meio
-                myMap[-1].views[1] == True #elimina o caminho da direita
+                myMap[-1].views[1] == True #elimina o caminho do meio
         else:
-            intersections.append(pose.pos) #grava nova interseccao
+            intersections.append(pose) #grava nova interseccao
             if not pose.views[2]: #checa se ha caminho a direita
                 myMap.append(Position([pose.pos[0]+1,pose.pos[1]],check_walls())) #cria nova posicao para direita
             else:
@@ -39,9 +39,18 @@ while True:
         else:
             myMap.append(Position([pose.pos[0]-1,pose.pos[1]],check_walls())) #cria nova posicao para esquerda
     else:
-        print(intersections)
-        break
-    
+        last_intersection = myMap.index(intersections[-1]) #recebe ultima interseccao
+        i = len(myMap)-1 
+        msg = str(myMap[-1].pos) + "  Sem saida"
+        print(msg)
+        while i > last_intersection:
+            msg = str(myMap[-1].pos) + "  " + str(myMap[-1].views)
+            print(msg)
+            myMap.pop() #elimina todas as posicoes ate ela
+            i-= 1
+        print("voltei")
+
+     
 
     
 
