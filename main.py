@@ -14,12 +14,12 @@ myMap.append(Position([0,0],check_walls()))
 
 myMoves = list()
 
-def create_pos(pos):
+def create_pos(pos): #cria o novo ponto
    new_pos = goto(pose.pos, pos)
-   myMoves.append(new_pos.move)
-   myMap.append(Position(new_pos.pos,check_walls()))    
+   myMoves.append(new_pos.move) #adiciona o movimento
+   myMap.append(Position(new_pos.pos,check_walls())) #adiciona a posicao   
 
-while len(myMap) - 50:
+while len(myMap) - 50: #executa por 50 operacoes
     time.sleep(0.1)
     pose = myMap[-1] # pega o obj da posição atual
     msg = str(pose.pos) + "  " + str(pose.views)
@@ -54,7 +54,7 @@ while len(myMap) - 50:
         print(msg)
         while i > last_intersection:
             # goto(myMap[-1].pos,myMap[-2].pos)
-            print(myMoves[-1])
+            print(myMoves[-1]) #usa os movimentos para voltar a posicao
             myMoves.pop()
             myMap.pop() #elimina todas as posicoes ate ela
             msg = str(myMap[-1].pos) + "  " + str(myMap[-1].views)
