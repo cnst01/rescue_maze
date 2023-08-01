@@ -2,6 +2,7 @@ from walls import check_walls
 from move import goto
 import time
 import plotly.express as px
+import destiny
 
 class Position:
     def __init__(self, pos, views):
@@ -19,11 +20,30 @@ def create_pos(pos): #cria o novo ponto
    myMoves.append(new_pos.move) #adiciona o movimento
    myMap.append(Position(new_pos.pos,check_walls())) #adiciona a posicao   
 
-while len(myMap) - 50: #executa por 50 operacoes
+
+while True:#len(myMap) - 50: executa por 50 operacoes
     time.sleep(0.1)
     pose = myMap[-1] # pega o obj da posição atual
     msg = str(pose.pos) + "  " + str(pose.views)
     # print(msg)
+    if destiny.main() == 1: 
+        print("cheguei")
+        i = len(myMap)-1 
+        msg = "destino é: " + str(myMap[-1].pos) + "\n\n"
+        print(msg)
+        while i > 0:
+            # goto(myMap[-1].pos,myMap[-2].pos)
+            print(myMoves[i-1]) #usa os movimentos para voltar a posicao
+            msg = str(myMap[-1].pos) + "  " + str(myMap[-1].views)
+            # print(msg)
+            
+            i-= 1
+        msg = "estou no início\n\n"
+        print(msg)
+        break
+
+
+        
     if sum(pose.views) == 0: #checa se nao existe nenhuma parede
         create_pos([pose.pos[0],pose.pos[1]+1])#adiciona uma posição acima ao mapa
     elif sum(pose.views) == 1: #checa se é interseccao
